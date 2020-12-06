@@ -1,0 +1,29 @@
+<ActorFrame>
+	<children>
+		<ActorFrame
+			AvastCommand="glow,1,1,1,1"
+			InitCommand="zoomy,0"
+			>
+			<children>
+				<!-- don't use zbuffer or else arrows with intersect the pills -->
+				<Actor
+					File="pill.model"
+					PillGainFocusCommand="zoom,0.6"
+					PillLoseFocusCommand="zoom,0.5"
+					InitCommand="zbuffer,0"
+				/>
+
+				<BitmapText
+					Text="TEXT"
+					File="Common Normal"
+					SetYesCommand="settext,YES"
+					SetNoCommand="settext,NO"
+					SetOKCommand="settext,OK"
+					InitCommand="diffuse,#FFFFFF"
+					PillGainFocusCommand="zoom,0.75"
+					PillLoseFocusCommand="zoom,0.6"
+				/>
+			</children>
+		</ActorFrame>
+	</children>
+</ActorFrame>
