@@ -1,0 +1,17 @@
+<ActorFrame> <children>
+	<ActorFrame Command="queuecommand,Icon" IconCommand="%function() StyleIcon() end" />
+	<ActorFrame Command="%function() if GAMESTATE:GetCoinMode() == 1 and not GetPref('EventMode') then rateMods = rateModsPay else rateMods = rateModsFree end end" />
+		<Layer
+		Class="AutoActor" 
+		File="../ScreenWithMenuElements underlay/back"
+		InitCommand="%function(self) self:diffuse(ColorRGB(1)) end" ColorSelectedMessageCommand="%function(self) self:linear(.5) self:diffuse(ColorRGB(1)) end" 
+
+	/>
+
+	<Layer
+		Class="AutoActor" 
+		File="../ScreenWithMenuElements underlay/fore"
+		InitCommand="%function(self) self:diffuse(ColorRGB(1)) end" ColorSelectedMessageCommand="%function(self) self:linear(.5) self:diffuse(ColorRGB(1)) end" 
+	/>
+	<ActorFrame InitCommand="%SelectMusicInit" FirstUpdateCommand="%SelectMusic" CaptureCommand="%SongInfo" CurrentSongChangedMessageCommand="queuecommand,Capture" CurrentStepsP1ChangedMessageCommand="queuecommand,Capture" CurrentStepsP2ChangedMessageCommand="queuecommand,Capture" />
+</children> </ActorFrame>
