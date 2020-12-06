@@ -117,5 +117,12 @@
 			OnCommand="x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y-180;pulse;EffectMagnitude,1.0,0.9,0;effectclock,bgm;effectperiod,1"
 		/>
 	</children></Layer>
+	<ActorFrame	InitCommand="draworder,99" OnCommand="" OffCommand="" ><children>
+	<ActorFrame InitCommand="%function() compareText = {} measureText = {} end" />
+	<Layer Font="modText" Text=" " InitCommand="aux,1;queuecommand,Go" GoCommand="%CompareText" />
+	<Layer Font="modText" Text=" " InitCommand="aux,2;queuecommand,Go" GoCommand="%CompareText" />
+	<Layer Font="modText" Text=" " InitCommand="aux,1;queuecommand,Go" GoCommand="%MeasureText" />
+	<Layer Font="modText" Text=" " InitCommand="aux,2;queuecommand,Go" GoCommand="%MeasureText" />
+</children></ActorFrame>
 </children> </ActorFrame>
 
