@@ -102,7 +102,8 @@ function GetStepsDescriptionText(n)
 end
 
 function SelectButtonAvailable()
-	return true
+	if GetInputType() == "PIUIO" then return true end
+	return false
 end
 
 

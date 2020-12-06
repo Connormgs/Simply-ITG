@@ -7,7 +7,7 @@ function GetArcadeStartScreen()
 		return "ScreenSetTime"
 	end
 
-	return "ScreenLove"
+	return "ScreenLogo"
 end
 
 function ScreenTitleBranch()
