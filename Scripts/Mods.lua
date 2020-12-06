@@ -93,7 +93,7 @@
 	feetBaseZoom = 1
 
 -- Judgment Font List
-	judgmentFontList = { 'Default' , 'mute' , 'Love' , 'Tactics', 'Chromatic', 'Deco', 'GrooveNights', 'Emoji', 'ITG2' }
+	judgmentFontList = { 'Bebas2', 'Chromatic', 'Code2', 'Comic Sans2', 'Deco', 'DDR A', 'DDR Extreme', 'ECFA', 'ECFA No Quotes', 'Emoji', 'FP', 'GrooveNights', 'ITG2', 'Japanese', 'Lobster2', 'Love', 'Love Chroma', 'Miso2', 'mute', 'Optimus Dark', 'Rainbowmatic', 'Roboto', 'Roboto ITG', 'Tactics', 'VHS', 'Vision', 'Vision Dark', 'Wendy2' }
 
 -- Used with ThemeFiles function
 	themeDir = '_ThemeFiles'
@@ -113,9 +113,9 @@
 
 -- These will be the option rows available on the [nth] option screen. The 'NextScreen' row will be automatically added as long as there is more than 1 option screen.
 	playerOptions = {}
-	playerOptions[1] = { 'SpeedType','SpeedNumber','Mini','Perspective','NoteSkin','Turn','LifeBar','Compare','Rate' }
+	playerOptions[1] = { 'SpeedType','SpeedNumber','Mini','Perspective','Centered','NoteSkin','Turn','LifeBar','Compare','Rate' }
 	playerOptions[2] = { 'Turn','Accel','Scroll','Effect','Appearance','Handicap','InsertTaps','InsertOther','Hide','Ghost' }
-	playerOptions.Edit = { 'SpeedType','SpeedNumber','Mini','Perspective','NoteSkin','Turn' }
+	playerOptions.Edit = { 'SpeedType','SpeedNumber','Mini','Perspective','Centered','NoteSkin','Turn' }
 	ShowAllInRow = false
 
 -----------------------
@@ -783,6 +783,7 @@ ModsMaster.Tornado =		{ float = true }
 ModsMaster.Tipsy =			{ float = true }
 ModsMaster.Beat =			{ float = true }
 ModsMaster.Mini =			{ float = true }
+ModsMaster.Centered =		{ float = true }
 
 ModsMaster.SpeedType =		{ fnctn = 'SpeedType' }
 ModsMaster.SpeedNumber =	{ fnctn = 'SpeedNumber' }
