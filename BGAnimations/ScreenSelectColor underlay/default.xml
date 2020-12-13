@@ -6,4 +6,15 @@
 		File="../_shared underlay arrows"
 		OnCommand="queuecommand,Load"
 	/>
+	
+	<Layer
+		Class="AutoActor" 
+		File="../ScreenWithMenuElements underlay/back"
+		InitCommand="%function(self) self:diffuse(ColorRGB(1)) end" ColorSelectedMessageCommand="%function(self) self:linear(.5) self:diffuse(ColorRGB(1)) end" 
+	/>
+		<Layer
+		Class="AutoActor" 
+		File="../ScreenWithMenuElements underlay/fore"
+		InitCommand="%function(self) self:diffuse(ColorRGB(1)) end" ColorSelectedMessageCommand="%function(self) self:linear(.5) self:diffuse(ColorRGB(1)) end" 
+	/>
 </children></ActorFrame>
