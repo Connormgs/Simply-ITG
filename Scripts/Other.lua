@@ -25,14 +25,6 @@ function ModeColor(self) local a = self:getaux(); a = math.mod(a+6,12) self:aux(
 function ModeColorOn(self) self:z(0) if self:getaux() < 0 then self:diffuse(1,1,1,1) else self:queuecommand('Loop') end end
 function ModeColorOff(self) self:diffuse(0.20,0.24,0.26,1) self:z(1) end
 
-File = 'loveheart'
-function BGShape() 
-	if not BGnum then BGnum = 1 end
-	path = THEME:GetPath( EC_BGANIMATIONS,'','_shared background images')
-	path = path .. '/' .. File
-	return path
-end
-
 function DifficultyListCommand(self,t) i = self:getaux() self:y((i-1)*(19.3)) self:shadowlength(0) if t == 'meter' then self:x(-16) self:zoom(.28) else self:horizalign('left') end DifficultyListRow(self,i,t) end
 
 function TitleMenuOut(self) self:sleep(.2) self:linear(.5) self:diffusealpha(0) end

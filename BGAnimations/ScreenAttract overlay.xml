@@ -1,8 +1,34 @@
 <ActorFrame><children>
 	<BitmapText
-		Font="_wendy small"
+		Font="_eurostile outline"
 		Text="???"
-		OnCommand="x,SCREEN_CENTER_X;y,SCREEN_BOTTOM-15;shadowlength,0;zoom,0.5;diffuse,#FFFFFF;PlayCommand,Refresh"
+		OnCommand="x,SCREEN_CENTER_X;y,SCREEN_BOTTOM-86;shadowlength,2;zoom,1;PlayCommand,Refresh"
+		CoinModeChangedMessageCommand="PlayCommand,Refresh"		
+		RefreshCommand="%
+			function(self) 
+				if GAMESTATE:GetCoinMode()==COIN_MODE_HOME then self:settext(''); return end
+				local coins=GAMESTATE:GetCoins()
+				local coinsPerCredit=PREFSMAN:GetPreference('CoinsPerCredit')
+				if coins&gt;=coinsPerCredit or GAMESTATE:GetCoinMode()==COIN_MODE_FREE then 
+					self:playcommand('PressStart') 
+				else 
+					self:playcommand('InsertCoin') 
+				end 
+			end"
+		InsertCoinCommand="settext,INSERT COIN;diffuseshift;EffectColor1,1,1,1,0;EffectColor2,1,1,1,1;EffectPeriod,2;EffectOffset,1;effectdelay,1"
+		PressStartCommand="%
+			function(self)
+				self:settext('PRESS &START;')
+				self:diffuseblink()
+				self:effectcolor1(1,1,1,0)
+				self:effectcolor2(1,1,1,1)
+				self:effectperiod((GAMESTATE:GetCoinMode() == COIN_MODE_FREE) and 1.0 or 0.3)
+			end"
+	/>
+	<BitmapText
+		Font="_eurostile outline"
+		Text="???"
+		OnCommand="x,SCREEN_CENTER_X;y,SCREEN_BOTTOM-56;shadowlength,2;zoom,0.8;diffuse,0.7,0.7,0.7,1;diffusebottomedge,#DFB629D0;PlayCommand,Refresh"
 		RefreshCommand="%
 			function(self)
 				if GAMESTATE:IsEventMode() then self:settext('EVENT MODE') return end
