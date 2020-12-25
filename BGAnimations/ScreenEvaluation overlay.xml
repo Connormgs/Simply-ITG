@@ -1,0 +1,21 @@
+<ActorFrame> <children>
+
+    <Layer Type="ActorFrame"
+        Condition="not GAMESTATE:IsCourseMode() and not (GAMESTATE:GetCurrentSong() == SONGMAN:FindSong('In The Groove/Training1/'))"
+        OnCommand="x,SCREEN_CENTER_X;y,SCREEN_TOP-20;sleep,3;y,SCREEN_TOP+66;addy,-100;sleep,0.5;queuecommand,TweenOn"
+        OffCommand="y,-80;queuecommand,TweenOff"
+        ShowGameplayTopFrameMessageCommand="playcommand,TweenOn"
+        HideGameplayTopFrameMessageCommand="playcommand,TweenOff"
+        TweenOnCommand="decelerate,0.8;addy,+100"
+        TweenOffCommand="accelerate,0.8;addy,-100"
+        > <children>
+
+        <Layer
+            Type="BitmapText"
+            Font="_eurostile normal"
+            OnCommand="y,1;zoom,.5;shadowlength,0"
+            InitCommand="animate,0;playcommand,Update"
+            CurrentSongChangedMessageCommand="playcommand,Update"
+            UpdateCommand="%SetFromSongTitleAndCourseTitle"
+        />
+    </children> </Layer>
