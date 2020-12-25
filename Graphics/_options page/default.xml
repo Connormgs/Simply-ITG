@@ -1,0 +1,7 @@
+<ActorFrame> <children>
+	<Layer
+		Class="AutoActor" 
+		File="options page"
+		InitCommand="%function(self) self:diffuse(ColorRGB(1)) end" ColorSelectedMessageCommand="%function(self) self:linear(.5) self:diffuse(ColorRGB(1)) end" 
+	/>
+</children> </ActorFrame>

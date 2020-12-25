@@ -1,0 +1,10 @@
+<ActorFrame> <children>
+	<Layer
+		Class="AutoActor" 
+		File="ScreenOptions frame"
+		InitCommand="%function(self) self:diffuse(ColorRGB(1)) end" ColorSelectedMessageCommand="%function(self) self:linear(.5) self:diffuse(ColorRGB(1)) end" 
+		OnCommand="x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;addy,18"
+		OffCommand="accelerate,0.3;addx,SCREEN_WIDTH"
+
+	/>
+</children> </ActorFrame>
