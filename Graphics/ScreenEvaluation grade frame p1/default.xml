@@ -1,4 +1,5 @@
 <ActorFrame> <children>
+<Layer File="base frame" />
 	<Layer Type="ActorFrame" OnCommand="x,-128;y,31"> <children>
 		<Layer Type="BitmapText" Font="_eurostile normal" Text="Fantastic"	OnCommand="y,16*0;zoom,0.5;horizalign,left;ShadowLength,0" />
 		<Layer Type="BitmapText" Font="_eurostile normal" Text="Excellent"	OnCommand="y,16*1;zoom,0.5;horizalign,left;ShadowLength,0" />

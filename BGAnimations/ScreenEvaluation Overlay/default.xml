@@ -1,8 +1,0 @@
-<ActorFrame> <children>
-	<Layer
-		Class="AutoActor" 
-		File="base frame"
-		InitCommand="%function(self) self:diffuse(ColorRGB(1)) end" ColorSelectedMessageCommand="%function(self) self:linear(.5) self:diffuse(ColorRGB(1)) end" 
-		OnCommand="y,+295;x,+32;horizalign,left;zoomx,1"
-	/>
-</children> </ActorFrame>
