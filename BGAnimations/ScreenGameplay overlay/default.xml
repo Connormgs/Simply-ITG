@@ -27,6 +27,7 @@
 			Type="SongMeterDisplay"
 			StreamWidth="390"
 			StreamPath="meter stream"
+			OnCommand="diffuse,ColorRGB(1)"
 		>
 			<Tip
 				File="tip"
