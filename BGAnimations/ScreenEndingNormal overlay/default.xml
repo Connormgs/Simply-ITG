@@ -1,7 +1,7 @@
 <ActorFrame> <children>
 	<Layer
 		File="player pane"
-		OnCommand="x,SCREEN_CENTER_X-320+74;y,SCREEN_CENTER_Y+18"
+		OnCommand="diffuse,ColorRGB(1);x,SCREEN_CENTER_X-320+74;y,SCREEN_CENTER_Y+18"
 		Condition="GAMESTATE:IsHumanPlayer(PLAYER_1)"
 	/>
 
@@ -25,7 +25,7 @@
 	
 	<Layer
 		File="player pane"
-		OnCommand="x,SCREEN_CENTER_X+320-74;y,SCREEN_CENTER_Y+18"
+		OnCommand="diffuse,ColorRGB(1);x,SCREEN_CENTER_X+320-74;y,SCREEN_CENTER_Y+18"
 		Condition="GAMESTATE:IsHumanPlayer(PLAYER_2)"
 	/>
 

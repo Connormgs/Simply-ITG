@@ -1,6 +1,6 @@
 <ActorFrame>
 	<children>
-		<ActorFrame OnCommand="x,SCREEN_CENTER_X+2;y,SCREEN_CENTER_Y+18">
+		<ActorFrame OnCommand="diffuse,ColorRGB(1);x,SCREEN_CENTER_X+2;y,SCREEN_CENTER_Y+18">
 			<children>
 				<Layer Type="AutoActor" File="credits frame" />
 				<Layer Type="Quad" OnCommand="y,-226;zwrite,1;blend,noeffect;ZoomToWidth,340;ZoomToHeight,66" />
