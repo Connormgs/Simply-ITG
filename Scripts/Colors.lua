@@ -75,14 +75,15 @@ end
 
 -- Get a color to show text on top of difficulty frames.
 function ContrastingDifficultyColor( dc )
-	if dc == DIFFICULTY_BEGINNER	then return "#000000" end
-	if dc == DIFFICULTY_EASY		then return "#000000" end
-	if dc == DIFFICULTY_MEDIUM		then return "#000000" end
-	if dc == DIFFICULTY_HARD		then return "#000000" end
-	if dc == DIFFICULTY_CHALLENGE	then return "#000000" end
-	if dc == DIFFICULTY_EDIT		then return "#000000" end
-	return "1,1,1,1"
+	if dc == DIFFICULTY_BEGINNER	then return "#E2ABF5" end
+	if dc == DIFFICULTY_EASY		then return "#B2FFB5" end
+	if dc == DIFFICULTY_MEDIUM		then return "#F2F2AA" end
+	if dc == DIFFICULTY_HARD		then return "#EBA4AB" end
+	if dc == DIFFICULTY_CHALLENGE	then return "#AADCF2" end
+	if dc == DIFFICULTY_EDIT		then return "#F7F7F7" end
+	return "#FFFFFF"
 end
+
 
 function TextOnColor (n)
 	local color = Color() + 12
