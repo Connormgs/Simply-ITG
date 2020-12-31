@@ -32,21 +32,12 @@ function IconCrop(self)
 end
 
 function DifficultyColor( dc )
-	if dc == DIFFICULTY_EDIT then return "#B4B7BA" end
-	local color = dc + Color() + 10
-	color = math.mod(color-1,12)+1
-	if color == 1 then return "#FF7D00" end
-	if color == 2 then return "#FF3C23" end
-	if color == 3 then return "#FF003C" end
-	if color == 4 then return "#C1006F" end
-	if color == 5 then return "#8200A1" end
-	if color == 6 then return "#413AD0" end
-	if color == 7 then return "#0073FF" end
-	if color == 8 then return "#00ADC0" end
-	if color == 9 then return "#5CE087" end
-	if color == 10 then return "#AEFA44" end
-	if color == 11 then return "#FFFF00" end
-	if color == 12 then return "#FFBE00" end
+	if dc == DIFFICULTY_BEGINNER	then return "#D05CF6" end
+	if dc == DIFFICULTY_EASY		then return "#09FF10" end
+	if dc == DIFFICULTY_MEDIUM		then return "#F3F312" end
+	if dc == DIFFICULTY_HARD		then return "#EA3548" end
+	if dc == DIFFICULTY_CHALLENGE	then return "#16AFF3" end
+	if dc == DIFFICULTY_EDIT		then return "#F7F7F7" end
 	return "#FFFFFF"
 end
 
