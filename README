@@ -7,3 +7,14 @@ Credits to Mad Matt for Simply Love and creating the tools that I took from his 
 Gabrimax98 for color switcher implementations and tweaks/fixes to the look of the theme.
 iund for lots of functionality help and seemingly having answers to everything. 
 Adam Kirby for lots of testing and being a true ITG diehard. 
+
+
+notes: 
+
+Theme doesn't seem to have JWA cuz of this in metrics.ini:
+
+JejWindowAdd=0.0015
+
+If you want JWA change this to:
+
+JudgeWindowAdd=0.0015
