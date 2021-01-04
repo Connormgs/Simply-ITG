@@ -1,0 +1,3 @@
+[Actor]
+File=songbanner
+InitCommand=x,SCREEN_CENTER_X;y,240;diffusealpha,0.25
