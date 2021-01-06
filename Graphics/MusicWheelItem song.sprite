@@ -1,0 +1,3 @@
+[Sprite]
+Texture=WheelItem song
+InitCommand=diffuse,ColorRGB(1)

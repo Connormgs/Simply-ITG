@@ -1,0 +1,3 @@
+[Sprite]
+Texture=WheelItem section
+InitCommand=diffuse,ColorRGB(1)

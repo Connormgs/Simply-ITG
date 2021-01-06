@@ -1,0 +1,3 @@
+[Sprite]
+Texture=WheelItem sort
+InitCommand=diffuse,ColorRGB(1)
