@@ -170,24 +170,7 @@
 		HideGameplayTopFrameMessageCommand="playcommand,TweenOff"
 		> <children>
 		
-		<ActorFrame Condition="GAMESTATE:IsPlayerEnabled(PLAYER_2)" OnCommand="x,SCREEN_CENTER_X+(SCREEN_WIDTH*160/640+135);y,SCREEN_TOP+54"><children>
-			<Actor
-				File="@THEME:GetPath(EC_GRAPHICS,'','_difficulty icons')"
-				InitCommand="%function(self) self:y(IconY()) IconCrop(self) end"
-				OnCommand="animate,0;playcommand,Update"
-				CurrentStepsP1ChangedMessageCommand="playcommand,Update"
-				CurrentStepsP2ChangedMessageCommand="playcommand,Update"
-				UpdateCommand="%function(self,parent) SetDifficultyFrameFromSteps(self, PLAYER_2) end"
-			/>
-			<Actor
-				Class="DifficultyMeter"
-				Type="ScreenGameplay DifficultyMeterP2"
-				OnCommand="playcommand,Update"
-				CurrentStepsP1ChangedMessageCommand="playcommand,Update"
-				CurrentStepsP2ChangedMessageCommand="playcommand,Update"
-				UpdateCommand="%function(self) self:SetFromSteps(GAMESTATE:GetCurrentSteps(PLAYER_2)) end"
-			/>
-		</children></ActorFrame>
+	
 		
 	</children> </Layer>
 
