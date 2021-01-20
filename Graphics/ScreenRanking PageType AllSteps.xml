@@ -1,0 +1,8 @@
+<ActorFrame>
+<children>
+<BitmapText Font="_eurostile white glow" Text="Dance" 
+InitCommand="diffuse,ColorRGB(1);horizalign,left"/>
+<BitmapText Font="_eurostile normal" Text="Dance"
+InitCommand="shadowlength,0;horizalign,left"/>
+</children>
+</ActorFrame>
