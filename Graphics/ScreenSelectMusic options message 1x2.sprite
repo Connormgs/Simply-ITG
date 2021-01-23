@@ -1,0 +1,3 @@
+[Sprite]
+Texture=ScreenSelectMusic options text
+InitCommand=diffuse,ColorRGB(1)
