@@ -33,7 +33,7 @@
 					OnCommand="ShadowLength,2;zoom,0.5;x,55;y,-32;DiffuseAlpha,0.5"
 				/>
 				<BitmapText
-					Text="POP"
+					Text="LENGTH"
 					File="_eurostile normal"
 					OnCommand="ShadowLength,2;zoom,0.5;x,150;y,-30;DiffuseAlpha,0.5"
 				/>
