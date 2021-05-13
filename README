@@ -16,6 +16,8 @@ If you hold the start button during a song you can restart it!
 
 Centered mod lets you move your receptors up/down in real time!
 
+Theme reads noteskins from the folder you don't have to update the row in mods.lua anymore
+
 notes: 
 
 Theme doesn't seem to have JWA cuz of this in metrics.ini:
