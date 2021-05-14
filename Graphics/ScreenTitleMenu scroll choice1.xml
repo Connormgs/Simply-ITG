@@ -1,10 +1,10 @@
 <ActorFrame><children>
 	<Layer
-		Font="_wendy small"
+		Font="_eurostile normal"
 		Text="Dance Mode"
-		InitCommand="horizalign,center;shadowlength,0;diffusealpha,0;sleep,0.2;accelerate,0.6;diffusealpha,1"
-		GainFocusCommand="@'diffuse,'..DifficultyColor(1)..';zoom,1'"
-		LoseFocusCommand="zoom,0.8;diffuse,#FFFFFF"
+		InitCommand="HorizAlign,left;ShadowLength,2;setstate,0;pause"
+		GainFocusCommand="StopTweening;DiffuseShift;EffectPeriod,0.5;EffectColor1,1,0.5,0.5,1;EffectColor2,0.5,0.25,0.25,1;Linear,0;Zoom,1.1"
+		LoseFocusCommand="StopTweening;StopEffect;Linear,0;Zoom,1.0"
 		DisabledCommand="Diffuse,0.5,0.5,0.5,1"
 		OffCommand="%TitleMenuOut"
 	/>
