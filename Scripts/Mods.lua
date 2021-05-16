@@ -131,7 +131,7 @@ function BM(str) MESSAGEMAN:Broadcast(str) end
 function Screen() return SCREENMAN:GetTopScreen() end
 function Sound(str) SOUND:PlayOnce( Path("sounds",str )) end
 function Path(ec,str) return THEME:GetPath( _G['EC_'..string.upper(ec)] , '' , str ) end
-function Player(pn) return GAMESTATE:IsPlayerEnabled(pn-1) end
+local function Player(pn) return GAMESTATE:IsPlayerEnabled(pn-1) end
 function PlayerIndex(pn) if pn == GAMESTATE:GetNumPlayersEnabled() then return pn end return 1 end
 function Profile(pn) if not PROFILEMAN then return {} end if pn == 0 then return PROFILEMAN:GetMachineProfile():GetSaved() else return PROFILEMAN:GetProfile(pn-1):GetSaved() end end
 function GetPref(str) return PREFSMAN:GetPreference(str) end
@@ -141,7 +141,7 @@ function ThemeName() local str = string.sub(THEME:GetPath(2,'','_blank.png'),9) 
 function VocalizePath() return '/Themes/' .. tostring(Profile(0).Love and Profile(0).Love.Dir or 'Simply Love') .. '/Vocalize/' end
 function IsType(a,t) return string.find(tostring(a),t) end
 function TableToString(t) local s = '' for i,v in ipairs(t) do s = s .. tostring(v) end return s end
-function GetStartScreen() if GetPref('BreakComboToGetItem') and GetInputType and GetInputType() == "" then return "ScreenArcadeStart" end return THEME:GetMetric('Common','FirstAttractScreen') end
+function GetStartScreen() SetPref("DelayedScreenLoad",false) if GetPref('BreakComboToGetItem') and GetInputType and GetInputType() == "" then return "ScreenArcadeStart" end return THEME:GetMetric('Common','FirstAttractScreen') end
 function GetArcadeStartScreen() if GetInputType() == "" then return "ScreenArcadeStart" end	return THEME:GetMetric('Common','FirstAttractScreen') end
 function MaxLength(str,l) if string.len(str) > l then str = string.sub(str,0,l-3) .. '...' end return str end
 function RowMetric(b,a,r) if r then rowYNum = 0 rowYAdd = a rowYBase = b rowYOffTop = rowYBase + rowYAdd*0.5 return r elseif a then rowYNum = rowYNum + a end rowYNum = rowYNum + 1 if b ~= 'Exit' then rowYOffCenter = rowYBase + rowYAdd*(rowYNum+1+math.mod(rowYNum,2))/2 rowYOffBottom = rowYBase + rowYAdd*(rowYNum+1/2) end return rowYBase+rowYAdd*rowYNum end
@@ -153,6 +153,7 @@ function ApplyMod(mod,pn,f) local m = mod if m then if f then m = f .. '% ' .. m
 function CheckMod(pn,mod) return mod and GAMESTATE:PlayerIsUsingModifier(pn,mod) end
 function SummaryBranch() ForceSongAndSteps() if not scoreIndex then scoreIndex = 1 end if scoreIndex <= table.getn(AllScores) then return ScreenList('Summary') else scoreIndex = 1 return ScreenList('Ending') end end
 function Clock(val) local t = GlobalClock:GetSecsIntoEffect() if val then t = t - val end return t end
+--function Clock(val) local t = 0 if val then t = t - val end return t end
 function MusicClock() return Screen():GetSecsIntoEffect() end
 
 --------------------------------
