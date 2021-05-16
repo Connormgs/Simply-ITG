@@ -113,9 +113,13 @@
 
 -- These will be the option rows available on the [nth] option screen. The 'NextScreen' row will be automatically added as long as there is more than 1 option screen.
 	playerOptions = {}
-	playerOptions[1] = { 'SpeedType','SpeedNumber','Mini','Perspective','Centered','NoteSkin','Turn','LifeBar','Compare','Rate' }
-	playerOptions[2] = { 'Turn','Accel','Scroll','Effect','Appearance','Handicap','InsertTaps','InsertOther','Hide','Ghost' }
-	playerOptions.Edit = { 'SpeedType','SpeedNumber','Mini','Perspective','Centered','NoteSkin','Turn' }
+	playerOptions[1] = { 'SpeedType','SpeedNumber','Mini','Perspective','NoteSkin','Turn','LifeBar','Compare','Rate' }
+	if FUCK_EXE and tonumber(GAMESTATE:GetVersionDate()) >= 20210420 then -- v4.2.0
+		playerOptions[2] = { 'MetaMods1','MetaMods2','MetaMods3','Turn','Accel','Scroll','Effect','Appearance','Handicap','InsertTaps','InsertOther','Hide','Ghost' }
+	else
+		playerOptions[2] = { 'Turn','Accel','Scroll','Effect','Appearance','Handicap','InsertTaps','InsertOther','Hide','Ghost' }
+	end
+	playerOptions.Edit = { 'SpeedType','SpeedNumber','Mini','Perspective','NoteSkin','Turn' }
 	ShowAllInRow = false
 
 -----------------------
@@ -697,9 +701,50 @@ end
 -- BPM format and display functions
 -------------------------------------
 
+-- Intended to be used from ScreenEvaluation.
+-- It will return a human-readable string consists of metamods and rate mods currently being used.
+-- If BitmapText is given, this function will set the string to the BitmapText.
+function SongOptionsLabel(self)
+	local t = {}
+
+	local bpm = RateBPMlabel()
+	if bpm ~= '' then table.insert(t, bpm) end
+
+	local meta = MetaModsText()
+	if meta ~= '' then table.insert(t, meta) end
+
+	s = table.concat(t, ', ')
+
+	if self then
+		self:settext(s)
+	else
+		return s
+	end
+end
+
 function BPMlabelRate(self)	s = AdjustedBPM() .. ' BPM ' .. RateModAppend() if self then self:settext(s) else return s end end
 function BPMandRate(self) s = AdjustedBPM() .. ' ' .. RateModAppend() if self then self:settext(s) else return s end end
 function RateBPMlabel(self) s = RateModText() if s ~= '' then s = s .. ' (' .. AdjustedBPM() .. ' BPM)' end	if self then self:settext(s) else return s end end 
+
+function MetaModsText(self)
+	mods = {}
+
+	for _, metaModsRow in ipairs(metaModsRows) do
+		for i, v in ipairs(metaModsRow.mods) do
+			if CheckMod(0, v) then
+				table.insert(mods, metaModsRow.modlist[i])
+			end
+		end
+	end
+
+	s = table.concat(mods, ', ')
+
+	if self then
+		self:settext(s)
+	else
+		return s
+	end
+end
 
 function RateModText(self) s = '' if modRate ~= 1 then s = string.format('%01.1f',modRate) .. 'x Music Rate' end if self then self:settext(s) else return s end end
 function RateModAppend(self) s = RateModText() if s ~= '' then s = '(' .. s .. ')' end if self then self:settext(s) else return s end end
@@ -716,8 +761,8 @@ end
 function DisplaySpeedMod(pn)
 	local s = ''
 	if modType[pn] == 'x' and tonumber(bpm[1]) then
-		s = math.floor(modSpeed[pn] / 100 * bpm[1] + 0.5)
-		if tonumber(bpm[2]) then s = s ..  '-' .. math.floor(modSpeed[pn] / 100 * bpm[2] + 0.5) end
+		s = math.floor(modSpeed[pn] / 100 * bpm[1] * modRate + 0.5)
+		if tonumber(bpm[2]) then s = s ..  '-' .. math.floor(modSpeed[pn] / 100 * bpm[2] * modRate + 0.5) end
 		s = ' (' .. s .. ')'
 	end
 	return SpeedString(pn) .. s
@@ -726,7 +771,7 @@ end
 function GameplayBPM(self)
 	local b = Screen():GetChild('BPMDisplay')
 	if b then b = b:GetChild('Text'):GetText() end
-	if b then 
+	if b and bpm then
 		bpm[3] = Screen():GetChild('BPMDisplay'):GetChild('Text'):GetText()
 		if not OPENITG then bpm[3] = math.floor(bpm[3] * modRate + 0.5) end
 		self:settext(bpm[3])
@@ -742,6 +787,24 @@ end
 baseSpeed = { "C700", "C800", "C900", "C1000", "C1100", "C1200", "C1300", "C1400", "1x", "2x", "3x", "4x", "5x", "6x", "7x", "C400", "C500", "C600" }
 extraSpeed = { "0", "+C10", "+C20", "+C30", "+C40", "+C50", "+C60", "+C70", "+C80", "+C90", "+.75x", "+.50x", "+.25x" }
 
+metaModsRows = {
+	{
+		modlist = {'MetaFlip', 'MetaInvert', 'MetaVideogames', 'MetaMonocolumn'},
+		default = 'no metaflip, no metainvert, no metavideogames, no metamonocolumn',
+		mods = {'metaflip', 'metainvert', 'metavideogames', 'metamonocolumn'}
+	},
+	{
+		modlist = {'MetaReverse', 'MetaDizzy', 'MetaOrient', 'MetaBrake'},
+		default = 'no metareverse, no metadizzy, no metaorient, no metabrake',
+		mods = {'metareverse', 'metadizzy', 'metaorient', 'metabrake'}
+	},
+	{
+		modlist = {'MetaHidden', '50% MetaStealth'},
+		default = 'no metahidden, no metastealth',
+		mods = {'metahidden', '50% metastealth'}
+	}
+}
+
 rateMods = { "1.0x", "1.1x", "1.2x", "1.3x", "1.4x", "1.5x", "1.6x", "1.7x", "1.8x", "1.9x", "2.0x" }
 rateModsEdit = { "1.0x", "1.1x", "1.2x", "1.3x", "1.4x", "1.5x", "1.6x", "1.7x", "1.8x", "1.9x", "2.0x", "0.3x", "0.4x", "0.5x", "0.6x", "0.7x", "0.8x", "0.9x" }
 
@@ -751,7 +814,7 @@ ModsPlayer = {}
 ModsMaster = {}
 ModsMaster.Perspective =	{ modlist = {'Overhead','Hallway','Distant','Incoming','Space'}, Select = 1 }
 ModsMaster.NoteSkin =		{ modlist = NOTESKIN:GetNoteSkinNames(), Select = 1 }
-ModsMaster.Turn =			{ modlist = {'Mirror','Left','Right','Shuffle','Blender'}, default = 'no mirror,no left,no right,no shuffle,no supershuffle', mods = {'mirror','left','right','shuffle','supershuffle'} }
+ModsMaster.Turn =			{ modlist = {'Mirror','SoftShuffle','SmartBlender','Blender',}, default = 'no mirror,no left,no right,no shuffle,no supershuffle,no softshuffle, no spookyshuffle, no smartblender', mods = {'mirror','softshuffle','smartblender','supershuffle'} }
 ModsMaster.Hide = 			{ modlist = {'Hide Targets','Hide Judgments','Hide Background'}, default ='no dark,no blind,no cover', mods = {'dark','blind','cover'} }
 ModsMaster.Accel =			{ modlist = {'Accel','Decel','Wave','Boomerang','Expand','Bump'}, default = 'no boost,no brake,no wave,no boomerang,no expand,no bumpy', mods = {'Boost','Brake','Wave','Boomerang','Expand','Bumpy'} }
 ModsMaster.Scroll = 		{ modlist = {'Reverse','Split','Alternate','Cross','Centered'}, default = 'no reverse,no split,no alternate,no cross,no centered' }
@@ -783,8 +846,10 @@ ModsMaster.Tornado =		{ float = true }
 ModsMaster.Tipsy =			{ float = true }
 ModsMaster.Beat =			{ float = true }
 ModsMaster.Mini =			{ float = true }
-ModsMaster.Centered =		{ float = true }
 
+ModsMaster.MetaMods1 = 		{ fnctn = 'MetaMods1' }
+ModsMaster.MetaMods2 = 		{ fnctn = 'MetaMods2' }
+ModsMaster.MetaMods3 = 		{ fnctn = 'MetaMods3' }
 ModsMaster.SpeedType =		{ fnctn = 'SpeedType' }
 ModsMaster.SpeedNumber =	{ fnctn = 'SpeedNumber' }
 ModsMaster.Next =			{ fnctn = 'NextScreenOption' }
@@ -793,11 +858,12 @@ ModsMaster.Measure =		{ fnctn = 'MeasureOption', modlist = {-1,0,8,12,16,24,32} 
 ModsMaster.Compare =		{ fnctn = 'CompareOption' }
 ModsMaster.LifeBar =		{ fnctn = 'LifeBarOption' }
 ModsMaster.JudgmentFont =	{ fnctn = 'JudgmentOption' }
-ModsMaster.Voice =			{ fnctn = 'VocalizeOption' }
+--ModsMaster.Voice =			{ fnctn = 'VocalizeOption' }
 ModsMaster.Rate =			{ fnctn = 'RateMods' }
 ModsMaster.RateEdit =		{ fnctn = 'RateMods', arg = 'Edit' }
 ModsMaster.SpeedBase =		{ fnctn = 'SpeedMods' }
 ModsMaster.SpeedExtra =		{ fnctn = 'SpeedMods', arg = 'Extra' }
+
 
 function OptionRowBase(name,modList)
 	local t = {
@@ -949,6 +1015,45 @@ function RateMods( s )
 		MESSAGEMAN:Broadcast('RateModChanged')
 	end
 	return t
+end
+
+function MetaMods( s, iRow )
+	local metaModsRow = metaModsRows[ iRow ]
+	local t = OptionRowBase('MetaMods' .. iRow, metaModsRow.modlist)
+
+	t.SelectType = 'SelectMultiple'
+	t.OneChoiceForAllPlayers = true
+
+	t.LoadSelections = function(self, list, pn)
+		for i, v in ipairs(metaModsRow.mods) do
+			list[i] = CheckMod(pn, v)
+		end
+	end
+
+	t.SaveSelections = function(self, list, pn)
+		if pn ~= 0 then return end -- in OneChoiceForAllPlayers row, list in other players than player 1 is not valid
+
+		ApplyMod(metaModsRow.default, pn+1)
+		for i, v in ipairs(list) do
+			if v then
+				ApplyMod(metaModsRow.mods[i], pn+1)
+			end
+		end
+	end
+
+	return t
+end
+
+function MetaMods1( s )
+	return MetaMods( s, 1 )
+end
+
+function MetaMods2( s )
+	return MetaMods( s, 2 )
+end
+
+function MetaMods3( s )
+	return MetaMods( s, 3 )
 end
 
 function NextScreenOption()
