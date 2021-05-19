@@ -46,3 +46,4 @@ function wrap(val,max,min)
 	if not min then min = 0 end
 	return math.mod(val+(max-min+1)-min,max-min+1)+min
 end
+
