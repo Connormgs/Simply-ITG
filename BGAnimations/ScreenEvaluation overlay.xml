@@ -18,6 +18,13 @@
             CurrentSongChangedMessageCommand="playcommand,Update"
             UpdateCommand="%SetFromSongTitleAndCourseTitle"
         />
+				<Layer 
+			Type="BitmapText"
+			Font="_eurostile normal"
+			OnCommand="y,91;zoom,.4;shadowlength,1;diffuse,#FFFFFF"
+			InitCommand="animate,0;playcommand,Update"
+			UpdateCommand="%function(self) RateBPMlabel(self) end"
+		/>
     </children> </Layer>
 	
 		<!-- Difficulty: -->
