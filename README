@@ -29,6 +29,8 @@ Theme reads noteskins from the folder you don't have to update the row in mods.l
 
 notes: 
 
+for the session timer set the game to event mode, play mode type to timer and play length 0:00 and you will have a nice session timer at the bottom of the screen, holding tab to speed up the menus/screen transitions will make it inaccurate
+
 Theme doesn't seem to have JWA cuz of this in metrics.ini:
 
 JejWindowAdd=0.0015

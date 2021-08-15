@@ -1,0 +1,33 @@
+<ActorFrame><children>
+    <Layer Type="ActorFrame"><children>
+        <Layer 
+            File="event"
+            OnCommand="x,50"                
+        />
+        <Layer 
+            File="event2" 
+            OnCommand="diffuse,ColorRGB(1);x,50"
+        />
+    </children></Layer>
+    <Layer Type="ActorFrame"><children>
+        <Layer
+            Type="BitmapText"
+            Condition="IsTimedSet()"
+            Text="timer" 
+            Font="_eurostile normal" 
+            OnCommand="%function(self) 
+                self:shadowlength(0); 
+                self:zoom(0.6); 
+                self:horizalign('right'); 
+                self:x(SCREEN_CENTER_X)
+				self:y(400)
+                if GAMESTATE:GetEnv('Mods') then 
+                    self:playcommand('Timer') 
+                else
+                    self:queuecommand('Timer')
+                end 
+            end"
+            TimerCommand="%TimedSet.Timer"
+        />
+    </children></Layer>
+</children></ActorFrame>
