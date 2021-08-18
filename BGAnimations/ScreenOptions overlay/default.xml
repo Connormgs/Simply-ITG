@@ -7,4 +7,13 @@
 		OffCommand="accelerate,0.3;addx,SCREEN_WIDTH"
 
 	/>
+		<!-- rpc shenanigans -->
+	<Layer
+		Type="Quad"
+		OnCommand="%function(self)
+			self:hidden(1)
+			oat_RPC:set('state', 'Options')
+			oat_RPC:update()
+		end"
+	/>
 </children> </ActorFrame>

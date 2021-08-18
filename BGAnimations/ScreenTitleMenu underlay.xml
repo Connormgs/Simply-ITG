@@ -12,4 +12,13 @@
 		
 		
 		<Layer Font="_eurostile normal" Text="" Command="x,SCREEN_CENTER_X+8;y,SCREEN_CENTER_Y+193;zoom,0.45;shadowlength,0;diffusealpha,0;sleep,.3;queuecommand,Set" SetCommand="%function(self) s = SCREENMAN:GetTopScreen():GetChild('Songs'):GetText() self:settext(s) self:linear(.5) self:diffusealpha(1) Command = {} function file() if children then File=children[math.mod(table.getn(Command),table.getn(children))+1] end end end" OffCommand="%TitleMenuOut" />
+				<!-- rpc shenanigans -->
+		<Layer
+			Type="Quad"
+			OnCommand="%function(self)
+				self:hidden(1)
+				oat_RPC:set('state', 'Idle')
+				oat_RPC:update()
+			end"
+		/>
 </children></ActorFrame>
