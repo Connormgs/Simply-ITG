@@ -93,7 +93,22 @@ minFeet = 0
 feetBaseZoom = 1
 
 -- Judgment Font List
-judgmentFontList = { 'Bebas2', 'Chromatic', 'Code2', 'Comic Sans2', 'Deco', 'DDR A', 'DDR Extreme', 'ECFA', 'ECFA No Quotes', 'Emoji', 'FP', 'GrooveNights', 'ITG2', 'Japanese', 'Lobster2', 'Love', 'Love Chroma', 'Miso2', 'mute', 'Optimus Dark', 'Rainbowmatic', 'Roboto', 'Roboto ITG', 'Tactics', 'VHS', 'Vision', 'Vision Dark', 'Wendy2', 'IIDX', }
+judgmentFontList = { 'Default' , 'Love' , 'Tactics', 'Chromatic', 'Deco', 'GrooveNights', 'ITG2' }
+if FUCK_EXE then -- Auto load on NotITG
+	local list = { 'Default' }
+	
+	local dir = string.sub(THEME:GetPath(2,'','_blank.png'),9)
+	dir = string.sub(dir,1,string.find(dir,'/')-1)
+	for _,v in pairs({ GAMESTATE:GetFileStructure('Themes/'.. dir ..'/Graphics/_Judgments/') }) do
+		local t, _, name = string.find(v, "(.+) %dx%d")
+		if t then table.insert( list, name )
+		else print('[Judgment] Error in loading ' .. v)
+		end
+	end
+
+	judgmentFontList = list
+end
+
 
 -- Used with ThemeFiles function
 themeDir = '_ThemeFiles'
