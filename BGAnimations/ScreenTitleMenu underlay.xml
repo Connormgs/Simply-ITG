@@ -4,7 +4,7 @@
 		if not p.Love then p.Love = {} end
 		p.Love.Dir = ThemeName()
 	end" />
-	<Layer File="@VocalizePath()..'Vocalize.xml'" />
+
 	<ActorFrame InitCommand="%function() if file then file() end end" />
 	<ActorFrame OffCommand="queuecommand,Out" OutCommand="%function() s = SCREENMAN:GetTopScreen():GetChild('Logo') TitleMenuOut(s) end" />
 		<ActorFrame Command="queuecommand,Game" GameCommand="%DetectGame" />
