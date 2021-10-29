@@ -152,7 +152,6 @@ function GetPref(str) return PREFSMAN:GetPreference(str) end
 function SetPref(str,val) return PREFSMAN:SetPreference(str,val) end
 function ThemeFile( file ) return THEME:GetPath( EC_GRAPHICS, '' , themeDir..'/'..file ) end
 function ThemeName() local str = string.sub(THEME:GetPath(2,'','_blank.png'),9) return string.sub(str,1,string.find(str,'/')-1) end   
-function VocalizePath() return '/Themes/' .. tostring(Profile(0).Love and Profile(0).Love.Dir or 'Simply Love') .. '/Vocalize/' end
 function IsType(a,t) return string.find(tostring(a),t) end
 function TableToString(t) local s = '' for i,v in ipairs(t) do s = s .. tostring(v) end return s end
 function GetStartScreen() if GetPref('BreakComboToGetItem') and GetInputType and GetInputType() == "" then return "ScreenArcadeStart" end return THEME:GetMetric('Common','FirstAttractScreen') end
