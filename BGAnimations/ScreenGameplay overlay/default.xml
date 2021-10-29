@@ -124,41 +124,6 @@
 	<Layer Font="modText" Text=" " InitCommand="aux,2;queuecommand,Go" GoCommand="%CompareText" />
 	<Layer Font="modText" Text=" " InitCommand="aux,1;queuecommand,Go" GoCommand="%MeasureText" />
 	<Layer Font="modText" Text=" " InitCommand="aux,2;queuecommand,Go" GoCommand="%MeasureText" />
-
-	<!-- rpc shenanigans -->
-	<Layer
-		Type="Quad"
-		InitCommand="%function(self)
-			self:hidden(1)
-			oat_RPC:set('state', 'Gameplay')
-
-			local song = GAMESTATE:GetCurrentSong()
-			if song then
-				oat_RPC:set('title', song:GetDisplayMainTitle())
-				oat_RPC:set('author', song:GetDisplayArtist())
-				oat_RPC:set('pack', song:GetGroupName())
-			end
-
-			self:queuecommand('Update')
-		end"
-		UpdateCommand="%function(self)
-			local song = GAMESTATE:GetCurrentSong()
-			if song then
-				oat_RPC:set('title', song:GetDisplayMainTitle())
-				oat_RPC:set('author', song:GetDisplayArtist())
-				oat_RPC:set('pack', song:GetGroupName())
-				oat_RPC:set('marathon', GAMESTATE:IsCourseMode())
-
-				oat_RPC:set('score', math.ceil(STATSMAN:GetCurStageStats():GetPlayerStageStats(0):GetPercentDancePoints() * 10000) / 100)
-				oat_RPC:set('songstart', os.time() - GAMESTATE:GetSongTime())
-				oat_RPC:set('songend', os.time() + song:MusicLengthSeconds() - GAMESTATE:GetSongTime())
-				oat_RPC:update()
-			end
-
-			self:sleep(30)
-			self:queuecommand('Update')
-		end"
-	/>
 </children></ActorFrame>
 </children> </ActorFrame>
 

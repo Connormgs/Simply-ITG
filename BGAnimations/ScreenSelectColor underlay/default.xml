@@ -17,13 +17,4 @@
 		File="../ScreenWithMenuElements underlay/fore"
 		InitCommand="%function(self) self:diffuse(ColorRGB(1)) end" ColorSelectedMessageCommand="%function(self) self:linear(.5) self:diffuse(ColorRGB(1)) end" 
 	/>
-		<!-- rpc shenanigans -->
-	<Layer
-		Type="Quad"
-		OnCommand="%function(self)
-			self:hidden(1)
-			oat_RPC:set('state', 'ColorSelect')
-			oat_RPC:update()
-		end"
-	/>
 </children></ActorFrame>
