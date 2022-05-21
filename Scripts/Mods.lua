@@ -115,7 +115,7 @@
 	playerOptions = {}
 	playerOptions[1] = { 'SpeedType','SpeedNumber','Mini','Perspective','Centered','NoteSkin','Turn','LifeBar','Compare','Rate' }
 	playerOptions[2] = { 'Turn','Accel','Scroll','Effect','Appearance','Handicap','InsertTaps','InsertOther','Hide','Ghost' }
-	playerOptions.Edit = { 'SpeedType','SpeedNumber','Mini','Perspective','Centered','NoteSkin','Turn' }
+	playerOptions.Edit = { 'SpeedType','SpeedNumber','Mini','Perspective','Centered','NoteSkin','Turn','PlayerPos','Stats','JudgePos' }
 	ShowAllInRow = false
 
 -----------------------
@@ -796,6 +796,9 @@ ModsMaster.Rate =			{ fnctn = 'RateMods' }
 ModsMaster.RateEdit =		{ fnctn = 'RateMods', arg = 'Edit' }
 ModsMaster.SpeedBase =		{ fnctn = 'SpeedMods' }
 ModsMaster.SpeedExtra =		{ fnctn = 'SpeedMods', arg = 'Extra' }
+ModsMaster.PlayerPos =		{ fnctn = 'PlayerPositioning' }
+ModsMaster.PlayerStats =    { fnctn = 'OptionShowStats' }
+ModsMaster.JudgePos =    	{ fnctn = 'OptionJudgmentPosition' }
 
 function OptionRowBase(name,modList)
 	local t = {
@@ -1391,4 +1394,130 @@ function SaveProfile(self)
 		BM('SaveProfile')
 		self:queuecommand("SaveProfile")
 	end
+end
+
+
+
+function PlayerPositioning()
+	-- hide 4:3 option when using a 4:3 aspect ratio
+	local choices = {}
+	if gnZoomRatio == 1 then 
+		choices = { "Regular", "Centered"}
+	else
+		choices = { "Regular", "4:3", "Centered"}
+	end
+	local t = OptionRowBase('PlayerPositioning')
+	t.LayoutType = 'ShowAllInRow'
+	t.OneChoiceForAllPlayers = true
+	t.Choices = choices
+	t.LoadSelections = function(self, list) 
+		if gnPlayerPositioning == nil or gnPlayerPositioning == 0 then 
+			list[1] = true 
+			return 
+		elseif table.getn(choices) == 3 then
+			list[gnPlayerPositioning + 1] = true
+		elseif gnPlayerPositioning == 2 then 
+			list[3] = true
+		end
+	end
+	t.SaveSelections = function(self, list)
+		if list[1] then gnPlayerPositioning = 0
+		elseif table.getn(choices) == 3 then
+			if list[2] then gnPlayerPositioning = 1 
+			elseif list[3] then gnPlayerPositioning = 2 
+			end
+		elseif list[2] then gnPlayerPositioning = 2
+		end
+	end
+	return t
+end
+
+function PlayerPosP1()
+	local choices = {[0] = SCREEN_CENTER_X-(SCREEN_WIDTH*160/640), [1] = SCREEN_CENTER_X-160, [2] = SCREEN_CENTER_X }
+	if choices[gnPlayerPositioning] == nil then 
+		return choices[0]
+	else 
+		return choices[gnPlayerPositioning]
+	end
+end
+
+
+
+function PlayerPosP2()
+	local choices = { [0] = SCREEN_CENTER_X+(SCREEN_WIDTH*160/640), [1] = SCREEN_CENTER_X+160, [2] = SCREEN_CENTER_X }
+	if choices[gnPlayerPositioning] == nil then 
+		return choices[0]
+	else 
+		return choices[gnPlayerPositioning]
+	end
+end
+
+		-- Global table in which to store custom mods
+CustomMods = {}
+
+function ResetCustomMods()
+	CustomMods[PLAYER_1] = { hidescore = false, hidecombo = false, hidelife = false, showstats = false, showmods = false, judgmentposition = false, normal = true, left = false, right = false, upsidedown = false, solo = false, vibrate = false, spin = false, spinreverse = false, bob = false, pulse = false, wag = false, dark = 0, judgment = "ITG3" }
+	CustomMods[PLAYER_2] = { hidescore = false, hidecombo = false, hidelife = false, showstats = false, showmods = false, judgmentposition = false, normal = true, left = false, right = false, upsidedown = false, solo = false, vibrate = false, spin = false, spinreverse = false, bob = false, pulse = false, wag = false, dark = 0, judgment = "ITG3" }
+end
+
+-- Do initial reset
+ResetCustomMods()
+
+
+function ShowStats(pn)
+	if CustomMods[pn].showstats == true then return 1
+	else return 0 end
+end
+
+function OptionShowStats()
+	local t = {
+		Name = "InGameStats",
+		LayoutType = "ShowAllInRow",
+		SelectType = "SelectMultiple",
+		OneChoiceForAllPlayers = false,
+		ExportOnChange = false,
+		Choices = { "Show In-Game Statistics" },
+		
+		LoadSelections = function(self, list, pn)
+			--if GAMESTATE:StageIndex() == 0 then ResetCustomMods() end -- Reset if we're on the first stage
+			list[1] = CustomMods[pn].showstats -- Resets the in-game bargraph to be off
+		end,
+		
+		SaveSelections = function(self, list, pn)
+			CustomMods[pn].showstats = list[1] -- in-game bargraph
+		end
+		
+
+		
+	}
+	setmetatable(t, t)
+	return t
+end
+
+function GetJudgmentPosition()
+	if (GAMESTATE:IsPlayerEnabled(PLAYER_1) and CustomMods[PLAYER_1].judgmentposition == true) or (GAMESTATE:IsPlayerEnabled(PLAYER_2) and CustomMods[PLAYER_2].judgmentposition == true) then return 1
+	else return 0 end
+end
+
+function OptionJudgmentPosition()
+	local t = {
+		Name = "JudgmentPosition",
+		LayoutType = "ShowAllInRow",
+		SelectType = "SelectMultiple",
+		OneChoiceForAllPlayers = false,
+		ExportOnChange = false,
+		Choices = { "Judgments Behind Arrows" },
+		
+		LoadSelections = function(self, list, pn)
+			--if GAMESTATE:StageIndex() == 0 then ResetCustomMods() end -- Reset if we're on the first stage
+			list[1] = CustomMods[pn].judgmentposition -- Resets the judgements in front of arrows
+		end,
+		
+		SaveSelections = function(self, list, pn)
+			CustomMods[pn].judgmentposition = list[1] -- judgments behind arrows
+		end
+		
+	}
+	setmetatable(t, t)
+	return t
 end
