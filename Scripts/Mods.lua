@@ -1521,3 +1521,157 @@ function OptionJudgmentPosition()
 	setmetatable(t, t)
 	return t
 end
+
+function GlobalOffset()
+	-- start with -0.030, go to 0.00, increment by 0.001
+	local Values = {}
+	for i = 1,31 do Values[i] = (-0.030+(i-1)*0.001) end
+
+	local Names = {}
+	for i = 1,31 do Names[i] = Values[i] end
+
+	local type = PROFILEMAN:GetMachineProfile():GetSaved().GlobalOffset
+	
+	local function Load(self, list, pn)
+		if not type then list[18] = true return end
+
+		for i=1,31 do
+			if type == string.lower(Names[i]) then list[i] = true return end
+		end
+
+		list[1] = true
+	end
+
+	local function Save(self, list, pn)
+		for i=1,31 do
+			if list[i] then
+				PROFILEMAN:GetMachineProfile():GetSaved().GlobalOffset = string.lower(Names[i])
+				PROFILEMAN:SaveMachineProfile()
+				return
+			end
+		end
+	end
+
+	
+	local Params = { Name = "GlobalOffset" }
+
+	return CreateOptionRow( Params, Names, Load, Save )
+end
+
+function GetGlobalOffset()
+	local type = PROFILEMAN:GetMachineProfile():GetSaved().GlobalOffset
+	
+	if not type then
+	return -0.012 else
+	return tonumber(PROFILEMAN:GetMachineProfile():GetSaved().GlobalOffset)
+	end
+end
+
+function JudgePaddingToggleRow()
+	local Names = { "Disabled", "Enabled" }
+
+	local type = PROFILEMAN:GetMachineProfile():GetSaved().JudgePaddingToggle
+
+	-- called on construction, must set exactly one list member true
+	local function Load(self, list, pn)
+		-- short-circuit to 'disabled' if no option is set
+		if not type then list[1] = true return end
+
+		-- do any of the options match the given type?
+		for i=1,2 do
+			if type == string.lower(Names[i]) then list[i] = true return end
+		end
+
+		-- none of the above worked. fallback on standard
+		list[1] = true
+	end
+
+	-- called as the screen destructs, to save the selected option in list
+	local function Save(self, list, pn)
+		for i=1,2 do
+			if list[i] then
+				PROFILEMAN:GetMachineProfile():GetSaved().JudgePaddingToggle = string.lower(Names[i])
+				PROFILEMAN:SaveMachineProfile()
+				return
+			end
+		end
+	end
+
+	
+	local Params = { Name = "JudgePadding" }
+
+	return CreateOptionRow( Params, Names, Load, Save )
+end
+
+function GetJudgePadding()
+	local type = PROFILEMAN:GetMachineProfile():GetSaved().JudgePaddingToggle
+		
+	if type == "enabled" then
+	return "0.0015" else
+	return "0"
+	end
+end
+
+function CreateOptionRow( Params, Names, LoadFctn, SaveFctn )
+	if not Params.Name then return nil end
+
+	-- this needs to be used because Lua evaluates 'false' as 'nil', so
+	-- we can't use an OR operator to assign the value properly.
+	local function setbool( value, default )
+		if value ~= nil then return value else return default end
+	end
+
+	-- fill in with passed params or default values. only Name is required.
+	local t =
+	{
+		Name = Params.Name,
+
+		LayoutType = Params.LayoutType or "ShowAllInRow",
+		SelectType = Params.SelectType or "SelectOne",
+
+		OneChoiceForAllPlayers = setbool(Params.OneChoiceForAllPlayers, true),
+		EnabledForPlayers = Params.EnabledForPlayers or {PLAYER_1, PLAYER_2},
+
+		ExportOnChange = setbool(Params.ExportOnChange, false),
+		ReloadRowMessages= Params.ReloadRowMessages or {},
+
+		Choices = Names,
+		LoadSelections = LoadFctn,
+		SaveSelections = SaveFctn,
+	}
+
+	setmetatable( t, t )
+	return t
+end
+
+function CreateOptionRow( Params, Names, LoadFctn, SaveFctn )
+	if not Params.Name then return nil end
+
+	-- this needs to be used because Lua evaluates 'false' as 'nil', so
+	-- we can't use an OR operator to assign the value properly.
+	local function setbool( value, default )
+		if value ~= nil then return value else return default end
+	end
+
+	-- fill in with passed params or default values. only Name is required.
+	local t =
+	{
+		Name = Params.Name,
+
+		LayoutType = Params.LayoutType or "ShowAllInRow",
+		SelectType = Params.SelectType or "SelectOne",
+
+		OneChoiceForAllPlayers = setbool(Params.OneChoiceForAllPlayers, true),
+		EnabledForPlayers = Params.EnabledForPlayers or {PLAYER_1, PLAYER_2},
+
+		ExportOnChange = setbool(Params.ExportOnChange, false),
+		ReloadRowMessages= Params.ReloadRowMessages or {},
+
+		Choices = Names,
+		LoadSelections = LoadFctn,
+		SaveSelections = SaveFctn,
+	}
+
+	setmetatable( t, t )
+	return t
+end
