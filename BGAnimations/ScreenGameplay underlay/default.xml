@@ -126,6 +126,18 @@
 			NoteCrossedDownMessageCommand="finishtweening;diffusealpha,1;linear,0.3;zoom,1;diffusealpha,0"
 		/>
 	</children></ActorFrame>
+	
+			<Layer
+			Condition="not GAMESTATE:IsDemonstration() and not GAMESTATE:IsCourseMode()"
+			Class="AutoActor"
+			File="screenfilters"
+		/>
+
+		<Layer
+			Condition="not GAMESTATE:IsDemonstration() and not GAMESTATE:IsCourseMode()"
+			Class="AutoActor"
+			File="stepstats"
+		/>
 
 	<ActorFrame
 		Condition="GAMESTATE:IsHumanPlayer(PLAYER_2) and GAMESTATE:GetPlayMode()==PLAY_MODE_REGULAR and GAMESTATE:GetCurrentSteps(PLAYER_2):GetDifficulty()==DIFFICULTY_BEGINNER and PREFSMAN:GetPreference('MercifulBeginner')"
@@ -217,6 +229,10 @@
 	/>
 </children> </ActorFrame>
 
+
+
+
+
 <ActorFrame	InitCommand="draworder,-102" OnCommand="" OffCommand="" ><children>
 	<ActorFrame
 		InitCommand="%function() 
@@ -266,4 +282,7 @@
 		<Layer Type="Quad" InitCommand="faderight,0.8;diffuse,0,0,0,0" DeadCommand="hidden,0;diffuse,1,0,0,0;linear,0.3;diffuse,1,0,0,1;linear,0.3;diffuse,1,0,0,0.2" AliveCommand="hidden,1;diffuse,0,0,0,0" />
 		<Layer Type="Quad" InitCommand="faderight,0.8;diffuse,0,0,0,0" AliveCommand="hidden,0;diffuse,0,1,0,0;linear,0.3;diffuse,0,0.8,0,0.5;linear,0.3;diffuse,0,0,0,0" DeadCommand="hidden,1" />
 	</children></Layer>
+	
+
+
 </children></ActorFrame>

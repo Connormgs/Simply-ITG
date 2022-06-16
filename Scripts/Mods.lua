@@ -797,7 +797,7 @@ ModsMaster.RateEdit =		{ fnctn = 'RateMods', arg = 'Edit' }
 ModsMaster.SpeedBase =		{ fnctn = 'SpeedMods' }
 ModsMaster.SpeedExtra =		{ fnctn = 'SpeedMods', arg = 'Extra' }
 ModsMaster.PlayerPos =		{ fnctn = 'PlayerPositioning' }
-ModsMaster.PlayerStats =    { fnctn = 'OptionShowStats' }
+ModsMaster.Stats =    		{ fnctn = 'OptionShowStats' }
 ModsMaster.JudgePos =    	{ fnctn = 'OptionJudgmentPosition' }
 
 function OptionRowBase(name,modList)
@@ -1675,3 +1675,99 @@ function CreateOptionRow( Params, Names, LoadFctn, SaveFctn )
 	setmetatable( t, t )
 	return t
 end
+
+function OptionShowStats()
+	local t = {
+		Name = "InGameStats",
+		LayoutType = "ShowAllInRow",
+		SelectType = "SelectMultiple",
+		OneChoiceForAllPlayers = false,
+		ExportOnChange = false,
+		Choices = { "Show In-Game Statistics" },
+		
+		LoadSelections = function(self, list, pn)
+			--if GAMESTATE:StageIndex() == 0 then ResetCustomMods() end -- Reset if we're on the first stage
+			list[1] = CustomMods[pn].showstats -- Resets the in-game bargraph to be off
+		end,
+		
+		SaveSelections = function(self, list, pn)
+			CustomMods[pn].showstats = list[1] -- in-game bargraph
+		end
+		
+	}
+	setmetatable(t, t)
+	return t
+end
+
+
+function ShowStats(pn)
+	if CustomMods[pn].showstats == true then return 1
+	else return 0 end
+end
+
+function BPMDisplayOffsets()
+
+local SoloOffset = 0
+
+	if GAMESTATE:PlayerUsingBothSides() then return "hidden,1" end
+
+	if GAMESTATE:IsPlayerEnabled(PLAYER_1) and not GAMESTATE:IsPlayerEnabled(PLAYER_2) and ShowStats(PLAYER_1) == 1 then 
+		if CustomMods[PLAYER_1].solo then SoloOffset = 46 end
+	return "HorizAlign,Center;x,SCREEN_CENTER_X+SCREEN_WIDTH/4+100;addx,SCREEN_WIDTH/2+" .. SoloOffset .. ";decelerate,1;addx,-SCREEN_WIDTH/2" end
+	if GAMESTATE:IsPlayerEnabled(PLAYER_2) and not GAMESTATE:IsPlayerEnabled(PLAYER_1) and ShowStats(PLAYER_2) == 1 then
+		if CustomMods[PLAYER_2].solo then SoloOffset = 80 end
+	return "HorizAlign,Center;x,SCREEN_CENTER_X-SCREEN_WIDTH/4+100;addx,-SCREEN_WIDTH/2-" .. SoloOffset .. ";decelerate,1;addx,SCREEN_WIDTH/2" end
+	
+	return "hidden,1"
+end
+
+local function IsSupported() return 1 end
+
+function SetJudgmentFrameForPlayer( self, pn )
+	if not IsSupported() then return nil end
+
+	for tns,name in pairs(TapNoteMap) do
+		
+		if tns == "LowRated" then SetValueForChild( self, name, GetTapScore(pn, TNS_GREAT) + GetTapScore(pn, TNS_GOOD) + GetTapScore(pn, TNS_BOO) ) 
+		elseif tns == "HitNotes" then SetValueForChild( self, name, GetTapScore(pn, TNS_MARVELOUS) + GetTapScore(pn, TNS_PERFECT) + GetTapScore(pn, TNS_GREAT) + GetTapScore(pn, TNS_GOOD)) 
+		else SetValueForChild( self, name, GetTapScore(pn, tns) ) end
+	end
+
+	for hns,name in pairs(HoldNoteMap) do
+		SetValueForChild( self, name, GetHoldScore(pn, hns) )
+	end
+end
+
+function GetNotesHit( self, pn )
+	return GetTapScore(pn, TNS_MARVELOUS) + GetTapScore(pn, TNS_PERFECT) + GetTapScore(pn, TNS_GREAT)
+end	
+
+function GetNotesFantasticHit( self, pn )
+	return GetTapScore(pn, TNS_MARVELOUS)
+end	
+
+function GetNotesExcellentHit( self, pn )
+	return GetTapScore(pn, TNS_PERFECT)
+end	
+function GetNotesGreatHit( self, pn )
+	return GetTapScore(pn, TNS_GREAT)
+end	
+
+function GetNotesExcellentComboHit( self, pn )
+	if GetTapScore(pn, TNS_PERFECT) >=1 then 
+		return GetTapScore(pn, TNS_PERFECT) + GetTapScore(pn, TNS_MARVELOUS) end
+	return 0
+end	
+
+function GetNotesGreatComboHit( self, pn )
+	if GetTapScore(pn, TNS_GREAT) >=1 then 
+		return GetTapScore(pn, TNS_PERFECT) + GetTapScore(pn, TNS_MARVELOUS) + GetTapScore(pn, TNS_GREAT) end
+	return 0
+end	
+
+function GetNotesOtherHit( self, pn )
+	return GetTapScore(pn, TNS_GREAT) + GetTapScore(pn, TNS_GOOD) + GetTapScore(pn, TNS_BOO)
+end
+
+function GetHoldsHeldTotal(pn)
+return GetHoldScore(pn, HNS_OK) end

@@ -288,3 +288,46 @@ end
 
 function Decents() if math.abs(PREFSMAN:GetPreference('JudgeWindowSecondsGood') - 0.135) < .001 then return true end end
 function WayOffs() if math.abs(PREFSMAN:GetPreference('JudgeWindowSecondsBoo') - 0.180) < .001 then return true end end
+
+function Radar( Values, Cat )
+if not Values then return "" end
+local str = ""
+
+local CategoryDef = {
+RADAR_CATEGORY_JUMPS,
+RADAR_CATEGORY_HOLDS,
+RADAR_CATEGORY_MINES,
+RADAR_CATEGORY_HANDS,
+RADAR_CATEGORY_ROLLS,
+RADAR_CATEGORY_TAPS,
+}
+
+str = string.format("%03d", Values:GetValue( CategoryDef[Cat] ) )
+
+return str
+
+end
+
+
+function ColorRadar( player, Cat )
+if not player then return "" end
+
+local val = ""
+
+local CategoryDef = {
+RADAR_CATEGORY_JUMPS,
+RADAR_CATEGORY_HOLDS,
+RADAR_CATEGORY_MINES,
+RADAR_CATEGORY_HANDS,
+RADAR_CATEGORY_ROLLS,
+RADAR_CATEGORY_TAPS
+}
+
+local Selection = GAMESTATE:GetCurrentSteps( player ) or GAMESTATE:GetCurrentTrail( player )
+
+val = Selection:GetRadarValues():GetValue( CategoryDef[1] )
+
+if val <= 20 then return "diffuse,#FF0000" end
+if val < 20 then return "diffuse,#FFFF00" end
+return "diffuse,#FFFF00"
+end
