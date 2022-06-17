@@ -43,7 +43,6 @@ OnCommand="%function(self)
 				<children>
 				<BitmapText OnCommand="horizalign,right;zoom,0.5;shadowlength,0;addy,120;addx,-24;" File="ScreenGameplay judgment" Text="Holds Dropped:" />
 				<BitmapText OnCommand="horizalign,right;zoom,0.5;shadowlength,0;addy,140;addx,-24;" File="ScreenGameplay judgment" Text="Mines Hit: "/>
-				<BitmapText OnCommand="zoom,0.5;shadowlength,0;addy,116;addx,56;" File="ScreenGameplay judgment" Text="Current BPM"/>
 				<BitmapText OnCommand="horizalign,left;zoom,0.5;shadowlength,0;addy,120;addx,-20;" File="ScreenGameplay judgment" Name="HoldMiss" Text="0" />
 				<BitmapText OnCommand="horizalign,left;zoom,0.5;shadowlength,0;addy,140;addx,-20;" File="ScreenGameplay judgment" Name="Mine" Text="0"/>
 			</children></ActorFrame>	
@@ -88,7 +87,6 @@ OnCommand="%function(self)
 				<children>
 				<BitmapText OnCommand="horizalign,right;zoom,0.5;shadowlength,0;addy,120;addx,-24;" File="ScreenGameplay judgment" Text="Holds Dropped:" />
 				<BitmapText OnCommand="horizalign,right;zoom,0.5;shadowlength,0;addy,140;addx,-24;" File="ScreenGameplay judgment" Text="Mines Hit: "/>
-				<BitmapText OnCommand="zoom,0.5;shadowlength,0;addy,116;addx,56;" File="ScreenGameplay judgment" Text="Current BPM"/>
 				<BitmapText OnCommand="horizalign,left;zoom,0.5;shadowlength,0;addy,120;addx,-20;" File="ScreenGameplay judgment" Name="HoldMiss" Text="0" />
 				<BitmapText OnCommand="horizalign,left;zoom,0.5;shadowlength,0;addy,140;addx,-20;" File="ScreenGameplay judgment" Name="Mine" Text="0"/>
 			</children></ActorFrame>	
