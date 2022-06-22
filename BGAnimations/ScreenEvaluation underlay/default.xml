@@ -1,0 +1,41 @@
+<ActorFrame><children>
+	<ActorFrame InitCommand="%EvaluationInit" FirstUpdateCommand="%Evaluation" />
+	<ActorFrame Command="queuecommand,Icon" IconCommand="%function() StyleIcon() end" />
+	<ActorFrame
+		Condition="GAMESTATE:IsPlayerEnabled(PLAYER_1)"
+		Command="x,DoublesOffset()"
+	><children>
+		<ActorFrame Command="queuecommand,NonCombos"
+			NonCombosCommand="%function() 
+				if not WayOffs() then SCREENMAN:GetTopScreen():GetChild('BooNumberP1'):settext('    ') end 
+				if not Decents() then SCREENMAN:GetTopScreen():GetChild('GoodNumberP1'):settext('    ') end
+			end"
+		/>
+
+
+	</children></ActorFrame>
+	<ActorFrame
+		Condition="GAMESTATE:IsPlayerEnabled(PLAYER_2)"
+		Command="x,DoublesOffset()"
+	><children>
+		<ActorFrame Command="queuecommand,NonCombos"
+			NonCombosCommand="%function() 
+				if not WayOffs() then SCREENMAN:GetTopScreen():GetChild('BooNumberP2'):settext('    ') end 
+				if not Decents() then SCREENMAN:GetTopScreen():GetChild('GoodNumberP2'):settext('    ') end
+			end"
+		/>
+
+
+
+	</children></ActorFrame>
+	<Layer
+		File="../ScreenWithMenuElements underlay"
+		OnCommand="PlayCommand,DoOff;finishtweening;playcommand,Slow;queuecommand,DoOn"
+		SlowCommand="%function(self) self:SetUpdateRate(0.5) end"
+	/>
+	<Layer
+		File="evaluation banner mask"
+		OnCommand="zbuffer,1;blend,noeffect;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y-124;addy,-SCREEN_WIDTH/2;sleep,3;decelerate,0.3;addy,SCREEN_WIDTH/2"
+		OffCommand="accelerate,0.3;addy,-SCREEN_WIDTH/2"
+	/>
+</children></ActorFrame>
