@@ -1469,6 +1469,11 @@ function ShowStats(pn)
 	else return 0 end
 end
 
+function ShowStats2(pn)
+	if CustomMods[pn].showstats2 == true then return 1
+	else return 0 end
+end
+
 function OptionShowStats()
 	local t = {
 		Name = "InGameStats",
@@ -1476,23 +1481,30 @@ function OptionShowStats()
 		SelectType = "SelectMultiple",
 		OneChoiceForAllPlayers = false,
 		ExportOnChange = false,
-		Choices = { "Show In-Game Statistics" },
+		Choices = { "Big", "Small" },
 		
 		LoadSelections = function(self, list, pn)
 			--if GAMESTATE:StageIndex() == 0 then ResetCustomMods() end -- Reset if we're on the first stage
-			list[1] = CustomMods[pn].showstats -- Resets the in-game bargraph to be off
+			--list[1] = CustomMods[pn].showstats -- Resets the in-game bargraph to be off
+			list[1] = CustomMods[pn].showstats2-- Hide score mod
+			list[2] = CustomMods[pn].showstats -- Hide combo mod
 		end,
 		
 		SaveSelections = function(self, list, pn)
-			CustomMods[pn].showstats = list[1] -- in-game bargraph
-		end
-		
+			--CustomMods[pn].showstats = list[1] -- in-game bargraph
+			--CustomMods[pn].showstats2 = list[1]
+			CustomMods[pn].showstats2 = list[1] -- Hide score mod
+			CustomMods[pn].showstats = list[2] -- Hide combo mod
 
+		end
 		
 	}
 	setmetatable(t, t)
 	return t
 end
+
+
+
 
 function GetJudgmentPosition()
 	if (GAMESTATE:IsPlayerEnabled(PLAYER_1) and CustomMods[PLAYER_1].judgmentposition == true) or (GAMESTATE:IsPlayerEnabled(PLAYER_2) and CustomMods[PLAYER_2].judgmentposition == true) then return 1
@@ -1676,28 +1688,6 @@ function CreateOptionRow( Params, Names, LoadFctn, SaveFctn )
 	return t
 end
 
-function OptionShowStats()
-	local t = {
-		Name = "InGameStats",
-		LayoutType = "ShowAllInRow",
-		SelectType = "SelectMultiple",
-		OneChoiceForAllPlayers = false,
-		ExportOnChange = false,
-		Choices = { "Show In-Game Statistics" },
-		
-		LoadSelections = function(self, list, pn)
-			--if GAMESTATE:StageIndex() == 0 then ResetCustomMods() end -- Reset if we're on the first stage
-			list[1] = CustomMods[pn].showstats -- Resets the in-game bargraph to be off
-		end,
-		
-		SaveSelections = function(self, list, pn)
-			CustomMods[pn].showstats = list[1] -- in-game bargraph
-		end
-		
-	}
-	setmetatable(t, t)
-	return t
-end
 
 
 function ShowStats(pn)
