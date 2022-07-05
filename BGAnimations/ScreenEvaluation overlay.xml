@@ -35,21 +35,26 @@
 		HideGameplayTopFrameMessageCommand="playcommand,TweenOff"
 		> <children>
 		
-		<ActorFrame Condition="GAMESTATE:IsPlayerEnabled(PLAYER_1)" OnCommand="x,SCREEN_CENTER_X-240;y,SCREEN_TOP+146;addx,-200" TweenOnCommand="decelerate,0.8;addx,+200" TweenOffCommand="accelerate,0.8;addx,-200"><children>
-			<Actor
+		<ActorFrame
+			Condition="GAMESTATE:IsPlayerEnabled(PLAYER_1)"
+			OnCommand="x,SCREEN_CENTER_X-240;y,SCREEN_CENTER_Y-95;difficultyoffset;addx,-SCREEN_WIDTH/2;sleep,3;decelerate,0.3;addx,+SCREEN_WIDTH/2"
+			OffCommand="accelerate,0.3;addx,-SCREEN_WIDTH/2"><children>
+	<Actor
 				File="@THEME:GetPath(EC_GRAPHICS,'','_difficulty icons')"
 				OnCommand="animate,0;playcommand,Update"
-				CurrentStepsP1ChangedMessageCommand="playcommand,Update"
-				CurrentStepsP2ChangedMessageCommand="playcommand,Update"
-				UpdateCommand="%function(self,parent) SetDifficultyFrameFromSteps(self, PLAYER_1) end"
+				UpdateCommand="%function(self,parent) SetDifficultyFrameFromGameState(self, PLAYER_1) end"
 			/>
-			<Actor
+				<Actor
 				Class="DifficultyMeter"
 				Type="ScreenGameplay DifficultyMeterP1"
 				OnCommand="playcommand,Update"
-				CurrentStepsP1ChangedMessageCommand="playcommand,Update"
-				CurrentStepsP2ChangedMessageCommand="playcommand,Update"
-				UpdateCommand="%function(self) self:SetFromSteps(GAMESTATE:GetCurrentSteps(PLAYER_1)) end"
+				UpdateCommand="%function(self) 
+						if GAMESTATE:GetCurrentTrail(PLAYER_1) then 
+							self:SetFromTrail(GAMESTATE:GetCurrentTrail(PLAYER_1)) 
+						else
+							self:SetFromSteps(GAMESTATE:GetCurrentSteps(PLAYER_1))
+						end
+					end"
 			/>
 		</children></ActorFrame>
 		
