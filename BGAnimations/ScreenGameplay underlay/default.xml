@@ -219,7 +219,7 @@
 	<Layer
 		Font="_eurostile normal"
 		Text=""
-		InitCommand="x,SCREEN_CENTER_X+2;y,SCREEN_TOP+62;zoom,.4;shadowlength,0"
+		InitCommand="x,SCREEN_CENTER_X+1;y,SCREEN_TOP+62;zoom,.4;shadowlength,0"
 		OnCommand="queuecommand,Update"
 		UpdateCommand="%function(self) 
 		s = modRate .. 'x'

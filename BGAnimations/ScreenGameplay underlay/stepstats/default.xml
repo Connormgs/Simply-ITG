@@ -288,9 +288,9 @@ OnCommand="%function(self)
 				StepP1MessageCommand="%function(self) SetJudgmentFrameForPlayer(self, PLAYER_1) end">
 				<children>
 				
-			<BitmapText OnCommand="zoom,0.5;addy,50;addx,-150;shadowlength,0" File="_eurostile blue" Text="0" StepP1MessageCommand="%function(self) self:settext(GetNotesFantasticHit(self,PLAYER_1)) end" />
-			<BitmapText OnCommand="zoom,0.5;addy,65;addx,-150;shadowlength,0" File="_eurostile gold" Text="0" StepP1MessageCommand="%function(self) self:settext(GetNotesExcellentHit(self,PLAYER_1)) end" />
-			<BitmapText OnCommand="zoom,0.5;addy,80;addx,-150;shadowlength,0" File="_eurostile green" Text="0" StepP1MessageCommand="%function(self) self:settext(GetNotesOtherHit(self,PLAYER_1)) end" />
+			<BitmapText OnCommand="zoom,0.5;addy,265;addx,40;shadowlength,0;halign,0" File="_eurostile blue" Text="0" StepP1MessageCommand="%function(self) self:settext(GetNotesFantasticHit(self,PLAYER_1)) end" />
+			<BitmapText OnCommand="zoom,0.5;addy,277;addx,40;shadowlength,0;halign,0" File="_eurostile gold" Text="0" StepP1MessageCommand="%function(self) self:settext(GetNotesExcellentHit(self,PLAYER_1)) end" />
+			<BitmapText OnCommand="zoom,0.5;addy,289;addx,40;shadowlength,0;halign,0" File="_eurostile green" Text="0" StepP1MessageCommand="%function(self) self:settext(GetNotesOtherHit(self,PLAYER_1)) end" />
 				<!--Show what each collumn is, only on stage 1 -->
 				<ActorFrame Condition="GAMESTATE:StageIndex() == 0 "><children>
 				<BitmapText OnCommand="rotationz,-90;addx,73*-1;addy,-20;shadowlength,0;queuecommand,FadeOn" File="_v 26px bold black" Text="Fantastics" FadeOnCommand="%function(self) self:sleep(2) self:linear(1) self:diffusealpha(0) end" />
