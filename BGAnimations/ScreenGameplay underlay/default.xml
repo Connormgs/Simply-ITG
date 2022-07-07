@@ -210,16 +210,16 @@
 			end" 
 	/>
 	<Layer
-		Font="_misobold white"
+		Font="_eurostile normal"
 		Text=""
-		InitCommand="x,SCREEN_CENTER_X;y,SCREEN_TOP+44;zoom,.7;shadowlength,0"
+		InitCommand="x,SCREEN_CENTER_X;y,SCREEN_TOP+49;zoom,.7;shadowlength,0"
 		OnCommand="queuecommand,Update"
 		UpdateCommand="%GameplayBPM"
 	/>
 	<Layer
-		Font="_misobold white"
+		Font="_eurostile normal"
 		Text=""
-		InitCommand="x,SCREEN_CENTER_X;y,SCREEN_TOP+70;zoom,.3;shadowlength,0"
+		InitCommand="x,SCREEN_CENTER_X+2;y,SCREEN_TOP+62;zoom,.4;shadowlength,0"
 		OnCommand="queuecommand,Update"
 		UpdateCommand="%function(self) 
 		s = modRate .. 'x'

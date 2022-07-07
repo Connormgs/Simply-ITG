@@ -38,4 +38,5 @@
 		OnCommand="zbuffer,1;blend,noeffect;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y-124;addy,-SCREEN_WIDTH/2;sleep,3;decelerate,0.3;addy,SCREEN_WIDTH/2"
 		OffCommand="accelerate,0.3;addy,-SCREEN_WIDTH/2"
 	/>
+
 </children></ActorFrame>
