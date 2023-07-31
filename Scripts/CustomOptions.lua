@@ -53,7 +53,7 @@ end
 
 --put in some settings that allow you to bump in the lifebars on certain widescreen setups
 function LifebarAdjustmentRow()
-	local Names = { "0", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50" }
+	local Names = { "-50", "-5", "0", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50" }
 
 	local type = PROFILEMAN:GetMachineProfile():GetSaved().LifebarAdjustment
 	
