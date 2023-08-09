@@ -27,7 +27,7 @@ for the session timer set the game to event mode, play mode type to timer and pl
 
 ASPECT RATIO NOTES
 
- if you're going to play on an aspect ratio larger than 4:3 you will have a couple easy changes to make.  go to the operator menu, screen/display adjustments  and change life bar to -50 and replace the lifep1x and lifep2x values with the following:
+ if you're going to play on an aspect ratio larger than 4:3 you will have a couple easy changes to make.  go to the operator menu, screen/display adjustments  and change life bar to -50 and replace the lifep1x and lifep2x values in metrics.ini with the following:
  
  LifeP1X=@"SCREEN_LEFT+71+" .. GetLifebarAdjustment()
  LifeP2X=@"SCREEN_RIGHT-20-" .. GetLifebarAdjustment()
