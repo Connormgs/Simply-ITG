@@ -1,6 +1,6 @@
 *****OPENITG/NOTITG ONLY*****
 *****SM5 IS NOT COMPATIBLE*****
-
+*****READ BELOW*****
 Screenshots: 
 https://imgur.com/a/iYxiQvM
 
@@ -24,3 +24,10 @@ Theme reads noteskins from the folder you don't have to update the row in mods.l
 notes: 
 
 for the session timer set the game to event mode, play mode type to timer and play length 0:00 and you will have a nice session timer at the bottom of the screen, holding tab to speed up the menus/screen transitions will make it inaccurate
+
+ASPECT RATIO NOTES
+
+ if you're going to play on an aspect ratio larger than 4:3 you will have a couple easy changes to make.  go to the operator menu, screen/display adjustments  and change life bar to -50 and replace the lifep1x and lifep2x values with the following:
+ 
+ LifeP1X=@"SCREEN_LEFT+71+" .. GetLifebarAdjustment()
+ LifeP2X=@"SCREEN_RIGHT-20-" .. GetLifebarAdjustment()
